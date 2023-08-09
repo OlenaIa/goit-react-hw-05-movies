@@ -85,7 +85,7 @@ import PropTypes from 'prop-types'
 
 npm i react-loader-spinner
 
-import { BallTriangle } from 'react-loader-spinner'
+import { ThreeCircles } from 'react-loader-spinner'
 
 ---
 

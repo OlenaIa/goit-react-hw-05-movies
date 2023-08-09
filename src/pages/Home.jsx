@@ -1,7 +1,33 @@
+import { Loader } from "components/Loader/Loader";
+import MoviesList from "components/MoviesList/MoviesList";
+import { useEffect, useState } from "react";
+import { fetchMovies, onFetchError } from "services/api";
+
+const endPoint = "/trending/movie/day";
+
 const Home = () => {
-    return <div>
-    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Obcaecati consequuntur voluptatem, reprehenderit molestiae eius enim voluptate praesentium et vitae expedita adipisci rerum commodi dignissimos voluptatibus quos beatae at voluptas mollitia!
-</div>
+    const [loading, setLoading] = useState(true);
+    const [films, setFilms] = useState([]);
+    
+    useEffect(() => {
+        if (films.length > 0) {
+            return;
+        }
+        fetchMovies(endPoint)
+            .then(data => {
+                console.log(data.results);
+                setFilms(data.results);
+            })
+            .catch(onFetchError)
+            .finally(() => setLoading(false));
+    }, [films]);
+
+    return <>
+        <h2>Movies in trend</h2>
+        {loading && <Loader/>}
+        <MoviesList films={films}/>
+
+</>
 };
 
 export default Home;

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import { fetchMovieReviews, onFetchError } from "services/api";
-import { Loader } from "./Loader/Loader";
+import { Loader } from "../Loader/Loader";
 
 const endPoint = '/movie';
 

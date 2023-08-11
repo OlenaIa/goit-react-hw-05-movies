@@ -18,6 +18,8 @@ body {
     Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
   color: #212121;
   font-size: 14px;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
   background-color: #fff;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -34,8 +36,29 @@ code {
     monospace;
 }
 
+li {
+  list-style: none;
+}
+
 h1,
 h2,
-h3 {
+h3,
+h4 {
   margin: 0;
+}
+
+p,
+ul {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+}
+
+a {
+  text-decoration: none;
+  color: #212121;
+}
+
+a:active {
+  color: orange;
 }

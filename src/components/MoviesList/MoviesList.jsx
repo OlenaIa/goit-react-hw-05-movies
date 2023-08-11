@@ -1,16 +1,32 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import PropTypes from 'prop-types'
+import { LiStyle, UlStyle, WrapCardStyle } from "./MoviesList.styled";
 
 const MoviesList = ({ films }) => {
-    return <ul>
+    const location = useLocation();
+    console.log('location MoviesList', location);
+    
+    return <UlStyle>
         {films.map(({ id, title, overview, poster_path }) =>
-            <Link key={id} to={`${id}`}>{id}
-                <li>
-                    <img src={`http://image.tmdb.org/t/p/w342${poster_path}`} alt={title} width="200" />
-                    <h3>{title}</h3>
-                    <p>{overview}</p>
-                </li></Link>
+            <Link to={`${id}`} state={{ from: location }}>
+                <LiStyle key={id}>
+                    <img src={`http://image.tmdb.org/t/p/w154${poster_path}`} alt={title} width="154" height="231"/>
+                    <WrapCardStyle>
+                        <h3>{title}</h3>
+                        <p>{overview}</p>
+                    </WrapCardStyle>
+                </LiStyle>
+            </Link>
         )}
-    </ul>
+    </UlStyle>
+};
+
+MoviesList.propTypes = {
+    films: PropTypes.arrayOf(
+        PropTypes.objectOf(
+            PropTypes.node.isRequired,
+        ).isRequired,
+    ).isRequired,
 };
 
 export default MoviesList;

@@ -11,9 +11,7 @@ const MovieDetails = () => {
     const [loading, setLoading] = useState(true);
     const [movie, setMovie] = useState(null);
     const location = useLocation();
-    console.log('location MovieDetails', location);
     const backLinkRef = useRef(location.state?.from ?? '/movies');
-    console.log('backLinkRef', backLinkRef);
 
     useEffect(() => {
         if (!movieId) {
@@ -22,12 +20,16 @@ const MovieDetails = () => {
 
         fetchMovieDetails(endPoint, movieId)
             .then(data => {
-                console.log(data);
                 setMovie(data);
             })
             .catch(onFetchError)
             .finally(() => setLoading(false));
     }, [movieId]);
+
+    if (!movie) {
+        return;
+    };
+    const { poster_path, title, original_title, release_date, genres, vote_average, overview } = movie;
 
     return <SectionStyle>
         <StyledLink to={backLinkRef.current}>{'<<<< BACK'}</StyledLink>
@@ -35,13 +37,13 @@ const MovieDetails = () => {
         {loading && <Loader />}
         {movie && <>
             <WrapStyle>
-                <img src={`http://image.tmdb.org/t/p/w342${movie.poster_path}`} alt={movie.title} width="200" />
+                <img src={poster_path ? `http://image.tmdb.org/t/p/w342${poster_path}` : 'https://www.braasco.com//ASSETS/IMAGES/ITEMS/ZOOM/no_image.jpeg'} alt={title} width="200" />
                 <CardStyle>
-                    <h3>{movie.original_title}</h3>
-                    <p><b>Release date:</b> {movie.release_date}</p>
-                    <p><b>Genres:</b> {movie.genres.map(genre => `${genre.name.toLowerCase()} | `)}</p>
-                    <p><b>Ranking:</b> {movie.vote_average}</p>
-                    <p><b>Overview:</b> {movie.overview}</p>
+                    <h3>{original_title}</h3>
+                    <p><b>Release date:</b> {release_date}</p>
+                    <p><b>Genres:</b> {genres.map(({name}) => `${name.toLowerCase()} | `)}</p>
+                    <p><b>Ranking:</b> {vote_average}</p>
+                    <p><b>Overview:</b> {overview}</p>
                 </CardStyle>
             </WrapStyle>
             <h3>Additional information:</h3>

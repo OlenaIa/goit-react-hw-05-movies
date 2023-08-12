@@ -1,7 +1,8 @@
 import { SearchForm, SearchFormButton, SearchFormInput, SearchbarStyle } from "./Search.staled";
 import PropTypes from 'prop-types'
 
-const Searchbar = ({ searchQuery, onSubmitSearchBar, onChangeSearch }) => (<SearchbarStyle>
+const Searchbar = ({ onSubmitSearchBar }) => (
+    <SearchbarStyle>
     <SearchForm onSubmit={onSubmitSearchBar}>
         <SearchFormButton>
             <span>Search</span>
@@ -10,19 +11,16 @@ const Searchbar = ({ searchQuery, onSubmitSearchBar, onChangeSearch }) => (<Sear
         <SearchFormInput
             type="text"
             name="search"
-            // value={searchQuery}
-            // onChange={onChangeSearch}
             autoComplete="off"
             autoFocus
             placeholder="Search movies"
         />
     </SearchForm>
-</SearchbarStyle>);
+    </SearchbarStyle>
+);
 
 Searchbar.propTypes = {
     onSubmitSearchBar: PropTypes.func.isRequired,
-    // onChangeSearch: PropTypes.func.isRequired,
-    // searchQuery: PropTypes.string.isRequired,
-}
+};
 
 export default Searchbar;

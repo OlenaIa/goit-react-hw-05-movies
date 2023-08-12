@@ -2,25 +2,22 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import { fetchMovieReviews, onFetchError } from "services/api";
 import { Loader } from "../Loader/Loader";
+import { LiReviewStyle, UlReviewStyle } from "./Reviews.styled";
 
 const endPoint = '/movie';
 
-
 const Reviews = () => {
     const { movieId } = useParams();
-    console.log('movieId in Reviews', movieId);
     const [loading, setLoading] = useState(true);
     const [reviews, setReviews] = useState([]);
 
     useEffect(() => {
         if (!movieId) {
             return;
-        }
-        console.log('movieId in Reviews in FETCH', movieId);
+        };
 
         fetchMovieReviews(endPoint, movieId)
             .then(data => {
-                console.log(data);
                 setReviews(data.results);
             })
             .catch(onFetchError)
@@ -28,15 +25,17 @@ const Reviews = () => {
     }, [movieId]);
 
     return <>
+        <h3>Reviews:</h3>
         {loading && <Loader />}
-
-        Reviews {movieId}
-        {reviews.length !== 0 && reviews.map(review => <li key={review.id}>
-            <p>{review.author}</p>
-            <p>{review.content}</p>
-            <img src={`http://image.tmdb.org/t/p/w185${review.author_details.avatar_path}`} alt={review.author} width="100" />
-
-        </li>)}
+        {reviews.length !== 0 ?
+            <UlReviewStyle>
+                {reviews.map(({ id, author, content }) =>
+                    <LiReviewStyle key={id}>
+                        <p><b>Author:</b> {author}</p>
+                        <p>{content}</p>
+                    </LiReviewStyle>)}
+            </UlReviewStyle> :
+            <p>Sorry! We don't have any reviews for this movie</p>}
     </>
 };
 

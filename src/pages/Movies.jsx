@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { fetchSearchMovies, onFetchError, paramsForNotify } from "services/api";
 import { SectionStyle } from "./Pages.styled";
+
 const endPoint = '/search/movie';
 
 const Movies = () => {
@@ -13,7 +14,6 @@ const Movies = () => {
   const [films, setFilms] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const searchQuery = searchParams.get('query') ?? "";
-  console.log('START searchQuery', searchQuery);
   
   useEffect(() => {
     if (searchQuery === '') {
@@ -21,7 +21,7 @@ const Movies = () => {
     };
     if (films.length > 0) {
       return;
-    }
+    };
 
     setLoading(true);
     fetchSearchMovies(endPoint, searchQuery)
@@ -32,15 +32,6 @@ const Movies = () => {
       .finally(() => setLoading(false));
     
   }, [films, searchQuery]);
-  
-  // useEffect(() => {
-  //   console.log("Mounting phase: same when componentDidMount runs");
-  //   setSearchParams({});
-  //   setFilms([]);
-  //   return () => {
-  //     console.log("Unmounting phase: same when componentWillUnmount runs");
-  //   }
-  // }, []);
 
   const onSubmitSearchBar = (event) => {
     event.preventDefault();

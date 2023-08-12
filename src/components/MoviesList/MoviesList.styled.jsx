@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const UlStyle = styled.ul`
-    margin-top: 20px;
     display: flex;
     gap: 30px;
     align-items: center;

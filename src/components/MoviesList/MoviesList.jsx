@@ -4,13 +4,15 @@ import { LiStyle, UlStyle, WrapCardStyle } from "./MoviesList.styled";
 
 const MoviesList = ({ films }) => {
     const location = useLocation();
-    console.log('location MoviesList', location);
     
     return <UlStyle>
         {films.map(({ id, title, overview, poster_path }) =>
             <Link to={`${id}`} state={{ from: location }}>
                 <LiStyle key={id}>
-                    <img src={`http://image.tmdb.org/t/p/w154${poster_path}`} alt={title} width="154" height="231"/>
+                    <img src={poster_path ?
+                        `http://image.tmdb.org/t/p/w154${poster_path}` :
+                        'https://www.braasco.com//ASSETS/IMAGES/ITEMS/ZOOM/no_image.jpeg'}
+                        alt={title} width="154" height="231" />
                     <WrapCardStyle>
                         <h3>{title}</h3>
                         <p>{overview}</p>

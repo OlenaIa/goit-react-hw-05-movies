@@ -59,7 +59,7 @@ const Movies = () => {
   };
 
   return <div>
-    <Searchbar onSubmitSearchBar={onSubmitSearchBar} />
+    <Searchbar onSubmitSearchBar={onSubmitSearchBar} value={searchQuery} />
     <SectionStyle>
       {loading && <Loader />}
       <MoviesList films={films} />

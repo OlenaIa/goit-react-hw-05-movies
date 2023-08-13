@@ -7,7 +7,7 @@ const MoviesList = ({ films }) => {
     
     return <UlStyle>
         {films.map(({ id, title, overview, poster_path }) =>
-            <Link to={`${id}`} state={{ from: location }}>
+            <Link to={`/movies/${id}`} state={{ from: location }}>
                 <LiStyle key={id}>
                     <img src={poster_path ?
                         `http://image.tmdb.org/t/p/w154${poster_path}` :
